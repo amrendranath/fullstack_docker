@@ -1,0 +1,67 @@
+version: "3.8"
+
+services:
+  # MongoDB Database
+  mongo:
+    image: mongo:7.0
+    container_name: fullstack_mongo_dev
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_DATABASE: user_submission_db
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data_dev:/data/db
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+    networks:
+      - fullstack-network
+
+  # Flask Backend (Development mode)
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: fullstack_backend_dev
+    restart: unless-stopped
+    environment:
+      MONGODB_URI: mongodb://mongo:27017/user_submission_db
+      FLASK_ENV: development
+      FLASK_DEBUG: 1
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend:/app
+    depends_on:
+      - mongo
+    networks:
+      - fullstack-network
+    command: ["python", "app.py"]
+
+  # Node.js Frontend (Development mode)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: fullstack_frontend_dev
+    restart: unless-stopped
+    environment:
+      PORT: 3000
+      FLASK_BACKEND_URL: http://backend:5000
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    networks:
+      - fullstack-network
+    command: ["npm", "run", "dev"]
+
+networks:
+  fullstack-network:
+    driver: bridge
+
+volumes:
+  mongo_data_dev:
+    driver: local

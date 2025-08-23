@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Success - Frontend</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f5f5f5;
+      }
+      .container {
+        background-color: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+      .success-message {
+        background-color: #d4edda;
+        color: #155724;
+        padding: 15px;
+        border-radius: 4px;
+        margin-bottom: 20px;
+      }
+      .service-info {
+        background-color: #d1ecf1;
+        padding: 10px;
+        border-radius: 4px;
+        margin-bottom: 20px;
+        color: #0c5460;
+      }
+      h1 {
+        color: #28a745;
+      }
+      .nav-links {
+        margin-top: 20px;
+      }
+      .nav-links a {
+        color: #007bff;
+        text-decoration: none;
+        margin: 0 15px;
+        padding: 10px 20px;
+        border: 1px solid #007bff;
+        border-radius: 4px;
+        display: inline-block;
+      }
+      .nav-links a:hover {
+        background-color: #007bff;
+        color: white;
+      }
+      .user-info {
+        background-color: #f8f9fa;
+        padding: 15px;
+        border-radius: 4px;
+        margin: 20px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="service-info">
+        <strong>Frontend Service (Node.js/Express)</strong> → Data Successfully
+        Sent to Flask Backend
+      </div>
+
+      <h1>✅ Submission Successful!</h1>
+
+      <div class="success-message">
+        Your information has been successfully submitted to the Flask backend!
+      </div>
+
+      <div class="user-info">
+        <h3>Submitted Information:</h3>
+        <p><strong>Name:</strong> <%= name %></p>
+        <p><strong>Email:</strong> <%= email %></p>
+      </div>
+
+      <div class="nav-links">
+        <a href="/form">Submit Another</a>
+        <a href="/form">View All Data</a>
+      </div>
+    </div>
+  </body>
+</html>
